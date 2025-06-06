@@ -1,5 +1,21 @@
 import os
-from telegram import Bot
+from telegram import Update
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
-TOKEN = os.getenv(" 7572057562:AAEYXsvfSGUlD0iyL27LDNlQjlpeVS4hZ1E ")
-bot = Bot(token=TOKEN)
+# Bot token ကို environment variable ထဲကနေယူ
+TOKEN = os.environ.get("7572057562:AAEYXsvfSGUlD0iyL27LDNlQjlpeVS4hZ1E")
+
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("ဟယ်လို! ငါကသင့်ရဲ့ Telegram bot ပါ။")
+
+async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("ဘာကူညီပေးရမလဲ?")
+
+if name == '__main__':
+    app = ApplicationBuilder().token(TOKEN).build()
+
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("help", help_command))
+
+    print("Bot is running...")
+    app.run_polling()
