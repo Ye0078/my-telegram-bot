@@ -3,7 +3,8 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
 # Bot token ကို environment variable ထဲကနေယူ
-TOKEN = os.environ.get("7572057562:AAEYXsvfSGUlD0iyL27LDNlQjlpeVS4hZ1E")
+TOKEN = os.environ.get("7248432573:AAEfwlsSgJnEswh65n6TxIOYZRQe9rT8kjA
+")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("ဟယ်လို! ငါကသင့်ရဲ့ Telegram bot ပါ။")
