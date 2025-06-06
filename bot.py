@@ -1,35 +1,33 @@
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram import Bot  
+from telegram.ext import Updater, CommandHandler, MessageHandler  
+import logging  
 
-# BotFather ကရတဲ့ API Token ကို ဒီနေရာမှာထည့်ပါ
-TOKEN = "7248432573:AAEfwlsSgJnEswh65n6TxIOYZRQe9rT8kjA
-"
+# Enable logging  
+logging.basicConfig(  
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',  
+    level=logging.INFO  
+)  
 
-# /start command အတွက် function
-def start(update, context):
-    update.message.reply_text('Hello! Welcome to my bot.')
+logger = logging.getLogger(__name__)  
 
-# ရိုးရိုး message တွေအတွက် function
-def echo(update, context):
-    update.message.reply_text(update.message.text)
+# API Token  
+TOKEN = '7248432573:AAEfwlsSgJnEswh65n6TxIOYZRQe9rT8kjA'  
 
-def main():
-    # Updater instance တစ်ခုပြုလုပ်ပြီး token ကိုထည့်ပါ
-    updater = Updater(TOKEN, use_context=True)
+def start(update, context):  
+    context.bot.send_message(  
+        chat_id=update.effective_chat.id,  
+        text='Hello! I am your GitHub Bot!'  
+    )  
 
-    # Dispatcher ကိုရယူပါ
-    dp = updater.dispatcher
+def main():  
+    updater = Updater(TOKEN, use_context=True)  
 
-    # CommandHandler တွေထည့်ပါ
-    dp.add_handler(CommandHandler("start", start))
+    dp = updater.dispatcher  
 
-    # MessageHandler တွေထည့်ပါ (စာသား message တွေကို echo လုပ်ဖို့)
-    dp.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
+    dp.add_handler(CommandHandler('start', start))  
 
-    # Bot ကိုစတင်ပါ
-    updater.start_polling()
+    updater.start_polling()  
+    updater.idle()  
 
-    # Bot ကို Ctrl+C နှိပ်တဲ့အထိ run နေအောင်လုပ်ပါ
-    updater.idle()
-
-if name == '__main__':
+if name == '__main__':  
     main()
